@@ -1,0 +1,29 @@
+{
+  "name": "X-client",
+  "version": "0.0.1",
+  "description": "client part of X (Javascript SDK)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nighca/X-client"
+  },
+  "keywords": [
+    "X"
+  ],
+  "author": "nighca@live.cn",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/nighca/X-client/issues"
+  },
+  "homepage": "https://github.com/nighca/X-client",
+  "dependencies": {
+    "dnode": "^1.2.0",
+    "shoe": "0.0.15"
+  }
+}
