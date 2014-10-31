@@ -76,11 +76,11 @@ X
 
 	define a model
 
-	model struct described with key-[type](https://github.com/nighca/X/blob/master/db/types.js) pair
+	model struct described with key-[type](https://github.com/nighca/X#field-types) pair
 
 #### model methods
 
-see [here](https://github.com/nighca/X)
+see [here](https://github.com/nighca/X#model-methods)
 
 ### build
 
