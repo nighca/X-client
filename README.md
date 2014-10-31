@@ -1,7 +1,7 @@
 X-client
 =
 
-Client part (Javascript SDK) of [X](https://github.com/nighca/X)
+Client/browser part of [X](https://github.com/nighca/X)
 
 X is a universal model layer for browser apps based on [dnode](https://github.com/substack/dnode) & [shoe](https://github.com/substack/shoe).
 
