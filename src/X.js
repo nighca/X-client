@@ -1,19 +1,22 @@
 var shoe = require('shoe');
-var d = require('dnode')();
+var dnode = require('dnode')();
 
+// store config
 var config = {};
 
-var remoteMethods = {
-    model: {},
-    instance: {}
-};
+// class of X-model
+function XModel(name, schema){
+    this.name = name;
+    this.schema = schema;
+}
 
-var wrapModelMethod = function(method){
-    return function(params, callback){
+// extend X-model method
+XModel.extend = function(name, method){
+    this.prototype[name] = function(params, callback){
         var model = this;
-        method(model._name, params, null, config.token, function(err, result){
+        method(model.name, params, null, config.token, function(err, result){
             if(err === 'SCHEMA REQUIRED'){
-                method(model._name, params, model.schema, config.token, callback);
+                method(model.name, params, model.schema, config.token, callback);
             }else{
                 callback(err, result);
             }
@@ -21,64 +24,60 @@ var wrapModelMethod = function(method){
     };
 };
 
-var wrapInstanceMethod = function(method){};
+// record callbacks on X.ready
+var readyQueue = [];
 
-var createModel = function(name, schema){
-    function CustomModel(){}
-
-    CustomModel._name = name;
-    CustomModel.schema = schema;
-
-    Object.keys(remoteMethods.model).forEach(function(name){
-        CustomModel[name] = remoteMethods.model[name];
+// listen to connection ready
+dnode.on('remote', function(remote){
+    // extend XModel with remote methods
+    Object.keys(remote.model).forEach(function(name){
+        XModel.extend(name, remote.model[name]);
     });
 
-    Object.keys(remoteMethods.instance).forEach(function(name){
-        CustomModel.prototype[name] = remoteMethods.instance[name];
+    // trigger ready
+    X.isReady = true;
+    readyQueue.forEach(function(handler){
+        handler();
     });
-
-    return CustomModel;
-};
-
-var X = {
-    config: function(cfg){
-        config = cfg;
-        return this;
-    },
-    model: createModel,
-    connect: function(url){
-        var stream = shoe(url + '/X');
-        d.pipe(stream).pipe(d);
-        return this;
-    },
-    readyQueue: [],
-    ready: function(cb){
-        if(this.isReady){
-            cb();
-        }else{
-            this.readyQueue.push(cb);
-        }
-        return this;
-    },
-    init: function(remote){
-        Object.keys(remote.model).forEach(function(name){
-            remoteMethods.model[name] = wrapModelMethod(remote.model[name]);
-        });
-
-        Object.keys(remote.instance).forEach(function(name){
-            remoteMethods.instance[name] = wrapInstanceMethod(remote.instance[name]);
-        });
-
-        this.isReady = true;
-
-        this.readyQueue.forEach(function(handler){
-            handler();
-        });
-    }
-};
-
-d.on('remote', function(remote){
-    X.init(remote);
 });
 
+// exposed methods
+var X = {
+
+    // always not ready while initializing
+    isReady: false,
+
+    // do config
+    config: function(cfg){
+        Object.keys(cfg).forEach(function(key){
+            config[key] = cfg[key];
+        });
+
+        return this;
+    },
+
+    // create a X-model
+    model: function(name, schema){
+        return new XModel(name, schema);
+    },
+
+    // connect to given X-server
+    connect: function(url){
+        var stream = shoe(url + '/X');
+        dnode.pipe(stream).pipe(dnode);
+
+        return this;
+    },
+
+    // execute hander after X's ready
+    ready: function(cb){
+        if(this.isReady) cb();
+        else readyQueue.push(cb);
+
+        return this;
+    }
+
+};
+
+// export X
 window.X = X;

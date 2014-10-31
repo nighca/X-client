@@ -1,6 +1,6 @@
 X
     .config({ token:'57d9620b7406041429ab3fa733fe9cca' })
-    .connect('http://cq01-rdqa-dev056.cq01.baidu.com:8083')
+    .connect('http://127.0.0.1:8083')
     .ready(function(){
 
     var TestModel = X.model('test', {
