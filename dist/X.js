@@ -3557,18 +3557,7 @@ var wrapModelMethod = function(method){
     };
 };
 
-var wrapInstanceMethod = function(method){
-    return function(params, callback){
-        var model = this;
-        method(model._name, params, null, config.token, function(err, result){
-            if(err === 'SCHEMA REQUIRED'){
-                method(model._name, params, model.schema, config.token, callback);
-            }else{
-                callback(err, result);
-            }
-        });
-    };
-};
+var wrapInstanceMethod = function(method){};
 
 var createModel = function(name, schema){
     function CustomModel(){}

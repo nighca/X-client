@@ -1,0 +1,26 @@
+{
+  "name": "X-client",
+  "version": "0.0.1",
+  "homepage": "https://github.com/nighca/X-client",
+  "authors": [
+    "nighca <nighca@live.cn>"
+  ],
+  "description": "client part (Javascript SDK) of X",
+  "main": "dist/X.js",
+  "keywords": [
+    "X",
+    "sdk",
+    "rpc"
+  ],
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bluebird": "~2.3.10"
+  }
+}
