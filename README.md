@@ -66,7 +66,7 @@ X
 
 * X.ready
 
-	`[ handler(){} ]` -> `X`
+	`[ handler() ]` -> `X`
 
 	handler will be executed while X service ready (executed immediately if already ready)
 
