@@ -7,6 +7,10 @@ X is a universal model layer for browser apps based on [dnode](https://github.co
 
 ### Usage
 
+```html
+<script type="text/javascript" src="../dep/x-client/dist/X.js"></script>
+```
+
 ```javascript
 
 // global variable - X
@@ -15,40 +19,43 @@ X
 	.config({ token:'FAKETOKEN1QAZ2WSX3EDC' })
 
 	// connect to server (X server)
-	.connect('http://server.address.with.X.service:port')
+	.connect('http://server.address.with.X.service:port');
 
-	// connection ready (all model operation should be called after ready)
-	.ready(function(){
+// define a model
+var TestModel = X.model('test', {
+	name: 'String',
+	cnt: 'Mixed'
+});
 
-	// define a model
-	var TestModel = X.model('test', {
-		name: 'String',
-		cnt: 'Mixed'
-	});
+// create a instance
+TestModel.create({
+	name: 'test1',
+	cnt: {
+		a: 1
+	}
+}, function(err, res){
+	log('create', err, res);	// err, instance
+});
 
-	// create a instance
-	TestModel.create({
-		name: 'test1',
-		cnt: {
-			a: 1
-		}
-	}, function(err, res){
-		log('create', err, res);	// err, instance
-	});
-
-	// list all instances
-	TestModel.list({
-		// filters...
-	}, function(err, res){
-		log('list', err, res);		// err, list
-	});
-
+// list all instances
+TestModel.list({
+	// filters...
+}, function(err, res){
+	log('list', err, res);		// err, list
 });
 
 ```
 	
 
 ### API
+
+#### X properties
+
+* X.isReady
+
+	`true` / `false`
+
+	if X connection is ready
 
 #### X methods
 
@@ -77,6 +84,12 @@ X
 	define a model
 
 	model struct described with key-[type](https://github.com/nighca/X#field-types) pair
+
+* X.noConflict
+
+	`[]` -> `X`
+
+	relinquish control of the `X` variable.
 
 #### model methods
 

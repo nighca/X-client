@@ -1,6 +1,9 @@
 var shoe = require('shoe');
 var dnode = require('dnode')();
 
+// record origin X
+var originX = window.X;
+
 // store config
 var config = {};
 
@@ -21,8 +24,20 @@ XModel.extend = function(name, method){
                 callback(err, result);
             }
         });
+        return model;
     };
 };
+
+// pre-set methods (can be called before X's ready)
+['list', 'get', 'create', 'remove', 'update', 'exec'].forEach(function(name){
+    XModel.prototype[name] = function(){
+        var model = this, args = arguments;
+        X.ready(function(){
+            model[name].apply(model, args);
+        });
+        return model;
+    };
+});
 
 // record callbacks on X.ready
 var readyQueue = [];
@@ -75,6 +90,11 @@ var X = {
         else readyQueue.push(cb);
 
         return this;
+    },
+
+    noConflict: function(){
+        window.X = originX;
+        return X;
     }
 
 };
