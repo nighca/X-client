@@ -22,10 +22,7 @@ X
 	.connect('http://server.address.with.X.service:port');
 
 // define a model
-var TestModel = X.model('test', {
-	name: 'String',
-	cnt: 'Mixed'
-});
+var TestModel = X.model('test');
 
 // create a instance
 TestModel.create({
@@ -79,11 +76,9 @@ TestModel.list({
 
 * X.model
 
-	`[ { key: 'type', ... } ]` -> `model`
+	`[ 'name' ]` -> `model`
 
-	define a model
-
-	model struct described with key-[type](https://github.com/nighca/X#field-types) pair
+	define a model with name
 
 * X.noConflict
 

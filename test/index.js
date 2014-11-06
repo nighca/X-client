@@ -2,10 +2,7 @@ X
     .config({ token:'57d9620b7406041429ab3fa733fe9cca' })
     .connect('http://127.0.0.1:8083');
 
-var TestModel = X.model('test', {
-    name: 'String',
-    num: 'Number'
-});
+var TestModel = X.model('test');
 
 var promise = function(handler){
     return new Promise(handler);

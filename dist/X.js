@@ -3544,28 +3544,21 @@ var originX = window.X;
 var config = {};
 
 // class of X-model
-function XModel(name, schema){
+function XModel(name){
     this.name = name;
-    this.schema = schema;
 }
 
 // extend X-model method
 XModel.extend = function(name, method){
     this.prototype[name] = function(params, callback){
         var model = this;
-        method(model.name, params, null, config.token, function(err, result){
-            if(err === 'SCHEMA REQUIRED'){
-                method(model.name, params, model.schema, config.token, callback);
-            }else{
-                callback(err, result);
-            }
-        });
+        method(model.name, params, config.token, callback);
         return model;
     };
 };
 
-// preset methods (can be called before X's ready)
-['list', 'get', 'create', 'remove', 'update', 'exec'].forEach(function(name){
+// pre-set methods (can be called before X's ready)
+['list', 'get', 'create', 'remove', 'update'].forEach(function(name){
     XModel.prototype[name] = function(){
         var model = this, args = arguments;
         X.ready(function(){
@@ -3608,8 +3601,8 @@ var X = {
     },
 
     // create a X-model
-    model: function(name, schema){
-        return new XModel(name, schema);
+    model: function(name){
+        return new XModel(name);
     },
 
     // connect to given X-server
