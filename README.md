@@ -92,4 +92,8 @@ see [here](https://github.com/nighca/X#model-methods)
 
 ### build
 
-	browserify src/X.js -o dist/X.js
+	npm installl -g browserify
+
+	npm installl -g uglify-js
+
+	sh build.sh
