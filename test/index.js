@@ -30,8 +30,19 @@ promise(function(resolve, reject){
                 name: 'test2',
                 num: 2
             }
-        ], function(err, res){
-            log('create', err, res);
+        ], function(err, res1, res2, res3){
+            log('create', err, res1, res2, res3);
+
+            if(err) reject(err);
+            else resolve(res1, res2, res3);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        TestModel.list(function(err, res){
+            log('list', err, res);
 
             if(err) reject(err);
             else resolve(res);
@@ -41,9 +52,32 @@ promise(function(resolve, reject){
 }).then(function(){
 
     return promise(function(resolve, reject){
-        TestModel.list({
+        TestModel.list({}, 'name', function(err, res){
+            log('list name', err, res);
+
+            if(err) reject(err);
+            else resolve(res);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        TestModel.distinct('name', function(err, res){
+            log('distinct name, all', err, res);
+
+            if(err) reject(err);
+            else resolve(res);
+        });
+    })
+
+}).then(function(){
+
+    return promise(function(resolve, reject){
+        TestModel.distinct('num', {
+            name: 'test1'
         }, function(err, res){
-            log('list', err, res);
+            log('distinct num, test1', err, res);
 
             if(err) reject(err);
             else resolve(res);
@@ -67,12 +101,9 @@ promise(function(resolve, reject){
 
     return promise(function(resolve, reject){
         TestModel.update({
-            filters: {
-                name: 'test1'
-            },
-            updates: {
-                num: 2
-            }
+            name: 'test1'
+        }, {
+            num: 2
         }, function(err, res){
             log('update', err, res);
 
@@ -84,8 +115,7 @@ promise(function(resolve, reject){
 }).then(function(){
 
     return promise(function(resolve, reject){
-        TestModel.list({
-        }, function(err, res){
+        TestModel.list(function(err, res){
             log('list', err, res);
 
             if(err) reject(err);
@@ -108,8 +138,7 @@ promise(function(resolve, reject){
 }).then(function(){
 
     return promise(function(resolve, reject){
-        TestModel.list({
-        }, function(err, res){
+        TestModel.list(function(err, res){
             log('list', err, res);
 
             if(err) reject(err);

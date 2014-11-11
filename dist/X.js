@@ -3550,9 +3550,10 @@ function XModel(name){
 
 // extend X-model method
 XModel.extend = function(name, method){
-    this.prototype[name] = function(params, callback){
-        var model = this;
-        method(model.name, params, config.token, callback);
+    this.prototype[name] = function(){
+        var model = this,
+            args = Array.prototype.slice.call(arguments);
+        method.apply(model, [config.token, model.name].concat(args));
         return model;
     };
 };
