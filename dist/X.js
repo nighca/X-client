@@ -3559,7 +3559,7 @@ XModel.extend = function(name, method){
 };
 
 // pre-set methods (can be called before X's ready)
-['list', 'get', 'distinct', 'create', 'remove', 'update'].forEach(function(name){
+['list', 'get', 'distinct', 'create', 'remove', 'update', 'on'].forEach(function(name){
     XModel.prototype[name] = function(){
         var model = this, args = arguments;
         X.ready(function(){

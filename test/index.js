@@ -10,6 +10,10 @@ var promise = function(handler){
 
 var log = console.log.bind(console, '*');
 
+TestModel.on('change', function(info){
+    console.info('changed', info.type, info.data);
+});
+
 promise(function(resolve, reject){
 
     resolve('start');
