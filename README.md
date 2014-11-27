@@ -41,6 +41,11 @@ TestModel.list({
 	log('list', err, res);		// err, list
 });
 
+// listen to model's change
+TestModel.on('change', function(info){
+    console.info('changed', info.type, info.data);
+});
+
 ```
 	
 
