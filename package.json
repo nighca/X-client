@@ -1,5 +1,5 @@
 {
-  "name": "X-client",
+  "name": "x-client",
   "version": "0.4.1",
   "description": "client part (Javascript SDK) of X",
   "main": "index.js",
