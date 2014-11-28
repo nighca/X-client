@@ -3537,9 +3537,6 @@ if (typeof module === 'object' && module && module.exports) {
 var shoe = require('shoe');
 var dnode = require('dnode')();
 
-// record origin X
-var originX = window.X;
-
 // store config
 var config = {};
 
@@ -3620,17 +3617,30 @@ var X = {
         else readyQueue.push(cb);
 
         return this;
-    },
-
-    noConflict: function(){
-        window.X = originX;
-        return X;
     }
 
 };
 
-// export X
-window.X = X;
+// in browser
+if(window && window === window.window){
+    // record origin X
+    var originX = window.X;
+
+    // no conflict
+    X.noConflict = function(){
+        window.X = originX;
+        return X;
+    };
+
+    // export X
+    window.X = X;
+
+// in nodejs
+}else if(typeof exports !== 'undefined'){
+    module.exports = X;
+}
+
+
 },{"dnode":1,"shoe":12}],15:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
