@@ -1,53 +1,59 @@
 X-client
 =
 
-Client/browser part of [X](https://github.com/nighca/X)
+Client part of [X](https://github.com/nighca/X), in Node.js & browser.
 
-X is a universal model layer for browser apps based on [dnode](https://github.com/substack/dnode) & [shoe](https://github.com/substack/shoe).
+[X](https://github.com/nighca/X) is a universal model layer for browser apps based on websocket (realized with[dnode](https://github.com/substack/dnode) & [shoe](https://github.com/substack/shoe)).
+
+### Install
+
+#### in Node.js
+
+	npm install x-client
+
+```javascript
+var X = require('x-client');
+```
+
+#### in browser
+
+	bower install x-client
+
+```html
+<script type="text/javascript" src="../bower_components/x-client/dist/X.js"></script>
+<script type="text/javascript">
+	var X = window.X;
+</script>
+```
 
 ### Usage
 
-```html
-<script type="text/javascript" src="../dep/x-client/dist/X.js"></script>
-```
-
 ```javascript
 
-// global variable - X
 X
-	// config (token, ...)
 	.config({ token:'FAKETOKEN1QAZ2WSX3EDC' })
+	.connect('server.address.with.x.service:port');
 
-	// connect to server (X server)
-	.connect('http://server.address.with.X.service:port');
-
-// define a model
 var TestModel = X.model('test');
 
-// create a instance
 TestModel.create({
 	name: 'test1',
 	cnt: {
 		a: 1
 	}
-}, function(err, res){
-	log('create', err, res);	// err, instance
+}, function(err, obj){
+	// null, { ..., _id: '...' }
 });
 
-// list all instances
-TestModel.list({
-	// filters...
-}, function(err, res){
-	log('list', err, res);		// err, list
+TestModel.list(function(err, res){
+	// null, [{ ..., _id: '...' }]
 });
 
-// listen to model's change
 TestModel.on('change', function(info){
     console.info('changed', info.type, info.data);
+    // { type: 'create', data: [{ ..., _id: '...' }] }
 });
-
 ```
-	
 
 ### API
 
@@ -65,11 +71,11 @@ TestModel.on('change', function(info){
 
 	`[ { token: ... } ]` -> `X`
 
-	pass in config
+	pass in config, token is required
 
 * X.connect
 
-	`[ 'http://server.address.with.X.service:port' ]` -> `X`
+	`[ 'server.address.with.x.service:port' ]` -> `X`
 
 	connect to given server (should be a server with [X](https://github.com/nighca/X) service)
 
@@ -85,7 +91,7 @@ TestModel.on('change', function(info){
 
 	define a model with name
 
-* X.noConflict
+* X.noConflict (only in browser)
 
 	`[]` -> `X`
 
@@ -95,10 +101,16 @@ TestModel.on('change', function(info){
 
 see [here](https://github.com/nighca/X#model-methods)
 
-### build
+### Test
 
-	npm installl -g browserify
+#### in Node.js
 
-	npm installl -g uglify-js
+	npm test
 
-	sh build.sh
+#### in browser
+
+open `test/browser/index.html` in browser
+
+### Build (dist file for browser)
+
+	npm run build
