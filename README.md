@@ -5,6 +5,10 @@ Client part of [X](https://github.com/nighca/X), in Node.js & browser.
 
 [X](https://github.com/nighca/X) is a universal model layer for browser apps based on websocket (realized with[dnode](https://github.com/substack/dnode) & [shoe](https://github.com/substack/shoe)).
 
+### demo
+
+* [X-weekly](https://github.com/nighca/X-weekly)
+
 ### Install
 
 #### in Node.js
