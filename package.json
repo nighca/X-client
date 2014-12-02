@@ -1,6 +1,6 @@
 {
   "name": "x-client",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Client part of X, in Node.js & browser",
   "main": "index.js",
   "browserify": "browser.js",
@@ -25,7 +25,7 @@
     "model"
   ],
   "author": "nighca@live.cn",
-  "license": "",
+  "license": "Apache",
   "bugs": {
     "url": "https://github.com/nighca/X-client/issues"
   },
