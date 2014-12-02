@@ -5,12 +5,14 @@
   "authors": [
     "nighca <nighca@live.cn>"
   ],
-  "description": "client part (Javascript SDK) of X",
+  "description": "Client part of X, in Node.js & browser",
   "main": "dist/X.js",
   "keywords": [
     "X",
-    "sdk",
-    "rpc"
+    "client",
+    "rpc",
+    "javascript",
+    "model"
   ],
   "license": "Apache",
   "ignore": [
@@ -21,6 +23,5 @@
     "tests"
   ],
   "dependencies": {
-    "bluebird": "~2.3.10"
   }
 }
