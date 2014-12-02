@@ -1,20 +1,28 @@
 {
   "name": "x-client",
   "version": "0.4.1",
-  "description": "client part (Javascript SDK) of X",
+  "description": "Client part of X, in Node.js & browser",
   "main": "index.js",
+  "browserify": "browser.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "browserify": "browserify browser.js -o dist/X.js",
+    "compress": "uglifyjs dist/X.js -o dist/X.min.js",
+    "build": "npm run browserify && npm run compress",
+    "test": "mocha test/Node.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/nighca/X-client"
   },
   "keywords": [
-    "X"
+    "X",
+    "client",
+    "rpc",
+    "javascript",
+    "model"
   ],
   "author": "nighca@live.cn",
   "license": "",
@@ -24,6 +32,13 @@
   "homepage": "https://github.com/nighca/X-client",
   "dependencies": {
     "dnode": "^1.2.0",
-    "shoe": "0.0.15"
+    "shoe": "0.0.15",
+    "sockjs-stream": "^1.0.2"
+  },
+  "devDependencies": {
+    "browserify": "^6.3.3",
+    "chai": "^1.10.0",
+    "mocha": "^2.0.1",
+    "uglify-js": "^2.4.15"
   }
 }
